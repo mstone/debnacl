@@ -1,0 +1,23 @@
+Source: nacl
+Priority: extra
+Maintainer: Michael Stone <michael@laptop.org>
+Build-Depends: debhelper (>= 8.0.0)
+Standards-Version: 3.9.2
+Section: libs
+Homepage: <insert the upstream URL, if relevant>
+#Vcs-Git: git://git.debian.org/collab-maint/nacl.git
+#Vcs-Browser: http://git.debian.org/?p=collab-maint/nacl.git;a=summary
+
+Package: nacl-dev
+Section: libdevel
+Architecture: any
+Depends: naclBROKEN (= ${binary:Version})
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
+
+Package: naclBROKEN
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
