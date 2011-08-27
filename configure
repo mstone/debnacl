@@ -59,6 +59,7 @@ LOCALSTATEDIR=${LOCALSTATEDIR:-\${DESTDIR\}/var}
 SYSCONFDIR=${SYSCONFDIR:-\${DESTDIR\}/etc}
 LIBDIR=${LIBDIR:-\${DESTDIR\}${PREFIX}/lib}
 LIBEXECDIR=${LIBEXECDIR:-\${DESTDIR\}${PREFIX}/libexec}
+INCLUDEDIR=${INCLUDEDIR:-\${DESTDIR\}${PREFIX}/include}
 SHAREDIR=${SHAREDIR:-\${DESTDIR\}${PREFIX}/share}
 MANDIR=${MANDIR:-\${sharedir\}/man}
 PLATFORM=${PLATFORM:-$(uname -s)}
@@ -77,6 +78,7 @@ localstatedir ?= ${LOCALSTATEDIR}
 sysconfdir ?= ${SYSCONFDIR}
 libdir ?= ${LIBDIR}
 libexecdir ?= ${LIBEXECDIR}
+includedir ?= ${INCLUDEDIR}
 sharedir ?= ${SHAREDIR}
 mandir ?= ${MANDIR}
 

@@ -36,6 +36,9 @@
 .SUFFIXES:
 SUFFIXES :=
 
+config.mk:
+	./configure
+
 include config.mk
 
 # Debugging aid
@@ -52,7 +55,7 @@ pandoc_gz ?= $(pandoc) -s -S -r markdown -w man $< | gzip -c - > $@
 
 # declarations
 
-MANPAGES_GZ= $(patsubst %,man1/%.3.gz,crypto_box)
+MANPAGES_GZ= $(patsubst %,man3/%.3.gz,crypto_box)
 
 # codegen
 
@@ -76,20 +79,16 @@ clean:
 	rm -f $(MANPAGES_GZ) build
 	rm -rf $(patsubst %,man%,1 2 3 4 5 6 7 8)
 
-check: all $(patsubst %,%.ok,$(shell find t -name '*.t'))
-
 install: all
-	install -d -m 0755 "$(bindir)"
-	for f in $(BINARIES) $(SCRIPTS); do \
-		install -m 0755 $$f "$(bindir)/$$(basename $$f)"; \
+	install -d -m 0755 "$(libdir)"
+	install -m 0644 build/*/lib/*/libnacl.a "$(libdir)/libnacl.a"
+	install -d -m 0755 "$(includedir)/nacl"
+	for f in $$(ls build/*/include/*/*); do \
+		install -m 0644 $$f "$(includedir)/nacl/$$(basename $$f)" ; \
 	done
 	for p in $(MANPAGES_GZ); do \
 		install -d -m 0755 "$(mandir)/$$(dirname $$p)"; \
 		install -m 0644 $$p "$(mandir)/$$(dirname $$p)/$$(basename $$p)" ; \
-	done
-	for p in $(DATA); do \
-		install -d "$(sharedir)/vscan/$$(dirname $$p)"; \
-		install -m 0644 $$p "$(sharedir)/vscan/$$(dirname $$p)" ; \
 	done
 
 .PHONY: clean install all check docs
