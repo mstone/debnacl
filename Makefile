@@ -48,10 +48,10 @@ pr-%:
 
 # commands
 
-gzip ?= gzip
+gzip ?= gzip -9
 mkdir ?= mkdir -p $@
 pandoc ?= pandoc
-pandoc_gz ?= $(pandoc) -s -S -r markdown -w man $< | gzip -c - > $@
+pandoc_gz ?= $(pandoc) -s -S -r markdown -w man $< | $(gzip) -c - > $@
 
 # declarations
 
@@ -67,11 +67,21 @@ $(foreach N,1 2 3 4 5 6 7 8,$(eval $(call MAN_template,$(N))))
 
 # targets
 
-all: do.stamp docs
+all: do.stamp lib.stamp docs
 
 do.stamp:
 	./do
 	touch $@
+
+libdir.stamp: do.stamp
+	ln -sf build/*/lib/* libdir
+	touch $@
+
+lib.stamp: do.stamp libdir.stamp
+	g++ -shared -o libdir/libnacl.so.1 \
+	-Wl,-soname,"libnacl.so.1" -Wl,--whole-archive \
+	libdir/libnacl.a -Wl,--no-whole-archive \
+	libdir/cpucycles.o libdir/randombytes.o
 
 docs: $(MANPAGES_GZ)
 
@@ -81,7 +91,10 @@ clean:
 
 install: all
 	install -d -m 0755 "$(libdir)"
-	install -m 0644 build/*/lib/*/libnacl.a "$(libdir)/libnacl.a"
+	for f in $$(ls build/*/lib/*/*); do \
+		install -m 0644 $$f "$(libdir)/$$(basename $$f)" ; \
+	done
+	ln -sf libnacl.so.1 "$(libdir)/libnacl.so"
 	install -d -m 0755 "$(includedir)/nacl"
 	for f in $$(ls build/*/include/*/*); do \
 		install -m 0644 $$f "$(includedir)/nacl/$$(basename $$f)" ; \

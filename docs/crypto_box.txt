@@ -1,5 +1,15 @@
-% crypto_box(3)
+% CRYPTO_BOX(3) nacl user manuals
 % Michael Stone
 % August 27, 2011
 
-Hi.
+# NAME
+
+crypto_box - Hi
+
+# DESCRIPTION
+
+Hmm
+
+# SEE ALSO
+
+`nacl`(3)

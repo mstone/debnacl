@@ -1,3 +1,9 @@
+nacl (20110221-2) unstable; urgency=low
+
+  * Add -fPIC
+
+ -- Michael Stone <michael@laptop.org>  Sat, 27 Aug 2011 19:17:40 -0400
+
 nacl (20110221-1) unstable; urgency=low
 
   * Initial release

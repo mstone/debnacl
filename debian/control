@@ -9,6 +9,13 @@ Homepage: http://nacl.cace-project.eu/
 Package: libnacl-dev
 Section: libdevel
 Architecture: any
-Depends: 
+Depends: ${misc:Depends}
 Description: NaCl: Networking and Cryptography Library
+ Hmm.
  
+Package: libnacl1
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: NaCl: Networking and Cryptography Library
+ Hmm.

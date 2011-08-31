@@ -1,0 +1,5 @@
+usr/include
+usr/lib/libnacl.a
+usr/lib/libnacl.so
+usr/lib/*.o
+usr/share/man
